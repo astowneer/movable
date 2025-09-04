@@ -1,0 +1,16 @@
+openapi: 3.0.0
+info:
+  title: Movable Whiteboard
+  description: Copy Movable Whiteboard
+  version: 1.0
+paths:
+  /boards:
+    get:
+      $ref: './endpoints/boards.yml#/getAllBoards'
+
+    post: 
+      $ref: './endpoints/boards.yml#/createBoard'
+
+  /boards/{boardId}:
+    delete:
+      $ref: "./endpoints/boards.yml#/deleteBoard"
