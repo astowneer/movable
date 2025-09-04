@@ -53,7 +53,6 @@ export const eslintBoundariesConfig = {
         default: "disallow",
         message:
           "A module (${file.type}) must be imported via its public API. Direct import from ${dependency.source} is forbidden",
-
         rules: [
           {
             target: ["shared", "app"],
@@ -61,7 +60,7 @@ export const eslintBoundariesConfig = {
           },
           {
             target: ["features"],
-            allow: "index.(ts|tsx)",
+            allow: ["index.(ts|tsx)", "*.page.tsx"],
           },
         ],
       },
