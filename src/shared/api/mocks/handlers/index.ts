@@ -17,4 +17,22 @@ export const handlers = [
   http.get("/boards", () => {
     return HttpResponse.json(boards);
   }),
+  http.post("/boards", async (ctx) => {
+    const data = await ctx.request.json();
+    const board = {
+      id: crypto.randomUUID(),
+      name: data.name,
+    };
+    boards.push(board);
+    return HttpResponse.json(board);
+  }),
+  http.delete("/boards/{boardId}", async ({ params }) => {
+    const { boardId } = params;
+    const index = boards.findIndex((board) => board.id === boardId);
+    if (index === -1) {
+      return HttpResponse.json({ message: "Board not found", code: 404 });
+    }
+    boards.splice(index, 1);
+    return HttpResponse.json({ message: "Board deleted", code: 204 });
+  }),
 ];
