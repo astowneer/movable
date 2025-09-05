@@ -6,11 +6,19 @@ info:
 paths:
   /boards:
     get:
-      $ref: './endpoints/boards.yml#/getAllBoards'
+      $ref: "./endpoints/boards.yml#/getAllBoards"
 
-    post: 
-      $ref: './endpoints/boards.yml#/createBoard'
+    post:
+      $ref: "./endpoints/boards.yml#/createBoard"
 
   /boards/{boardId}:
     delete:
       $ref: "./endpoints/boards.yml#/deleteBoard"
+
+  /auth/login:
+    post:
+      $ref: "./endpoints/auth.yml#/login"
+
+  /auth/register:
+    post:
+      $ref: "./endpoints/auth.yml#/register"
