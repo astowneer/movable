@@ -3,6 +3,14 @@ info:
   title: Movable Whiteboard
   description: Copy Movable Whiteboard
   version: 1.0
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
 paths:
   /boards:
     get:
@@ -22,3 +30,7 @@ paths:
   /auth/register:
     post:
       $ref: "./endpoints/auth.yml#/register"
+  
+  /auth/refresh:
+    post:
+      $ref: "./endpoints/auth.yml#/refresh"
