@@ -1,7 +1,11 @@
 import { type ApiSchemas } from "../../schema";
 import { http } from "../http";
 import { HttpResponse } from "msw";
-import { createRefreshTokenCookie, generateTokens, verifyToken } from "./session";
+import {
+  createRefreshTokenCookie,
+  generateTokens,
+  verifyToken,
+} from "./session";
 
 const mockUsers: ApiSchemas["User"][] = [
   {
@@ -40,7 +44,7 @@ export const authHandlers = [
       {
         status: 200,
         headers: {
-          "Set-Cookies": createRefreshTokenCookie(refreshToken),
+          "Set-Cookie": createRefreshTokenCookie(refreshToken),
         },
       }
     );
@@ -87,12 +91,10 @@ export const authHandlers = [
     const refreshToken = cookies.refreshToken;
 
     if (!refreshToken) {
-      return HttpResponse.json(
-        {
-          message: "Refresh token не найден",
-          code: 401,
-        },
-      );
+      return HttpResponse.json({
+        message: "Refresh token не найден",
+        code: 401,
+      });
     }
 
     try {
@@ -117,17 +119,15 @@ export const authHandlers = [
         {
           status: 200,
           headers: {
-            "Set-Cookie": createRefreshTokenCookie(newRefreshToken),
+            "Set-Cookie": createRefreshTokenCookie(refreshToken),
           },
-        },
+        }
       );
     } catch (error) {
-      return HttpResponse.json(
-        {
-          message: "Недействительный refresh token",
-          code: 401,
-        },
-      );
+      return HttpResponse.json({
+        message: "Недействительный refresh token",
+        code: 401,
+      });
     }
-  })
+  }),
 ];
